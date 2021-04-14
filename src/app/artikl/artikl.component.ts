@@ -1,4 +1,7 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { Artikl } from '../model/artikl.model';
+import { ArtiklService } from '../service/artikl.service';
 
 @Component({
   selector: 'app-artikl',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArtiklComponent implements OnInit {
 
-  constructor() { }
+  displayedColumns = ['id', 'naziv', 'proizvodjac', 'actions'];
+
+  dataSource: Observable<Artikl[]>;
+
+  constructor(public artiklService: ArtiklService) {
+
+  }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  public loadData(){
+    this.dataSource = this.artiklService.getAllArtikl();
   }
 
 }
