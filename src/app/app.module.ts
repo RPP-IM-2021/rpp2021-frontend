@@ -1,3 +1,9 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,6 +14,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -22,6 +29,15 @@ import { HomeComponent } from './core/home/home.component';
 import { AboutComponent } from './core/about/about.component';
 import { AuthorComponent } from './core/author/author.component';
 import { ArtiklService } from './service/artikl.service';
+import { ArtiklDialogComponent } from './dialog/artikl-dialog/artikl-dialog.component';
+import { DobavljacDialogComponent } from './dialog/dobavljac-dialog/dobavljac-dialog.component';
+import { DobavljacService } from './service/dobavljac.service';
+import { StavkaPorudzbineDialogComponent } from './dialog/stavka-porudzbine-dialog/stavka-porudzbine-dialog.component';
+import { StavkaPorudzbineService } from './service/stavka-porudzbine.service';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { PorudzbinaService } from './service/porudzbina.service';
+import { PorudzbinaDialogComponent } from './dialog/porudzbina-dialog/porudzbina-dialog.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const Routes = [{path: 'artikl', component: ArtiklComponent},
                 {path: 'dobavljac', component: DobavljacComponent},
@@ -43,7 +59,11 @@ const Routes = [{path: 'artikl', component: ArtiklComponent},
     StavkaPorudzbineComponent,
     HomeComponent,
     AboutComponent,
-    AuthorComponent
+    AuthorComponent,
+    ArtiklDialogComponent,
+    DobavljacDialogComponent,
+    StavkaPorudzbineDialogComponent,
+    PorudzbinaDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,9 +76,18 @@ const Routes = [{path: 'artikl', component: ArtiklComponent},
     HttpClientModule,
     MatTableModule,
     MatToolbarModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
     RouterModule.forRoot(Routes)
   ],
-  providers: [ArtiklService],
+  providers: [ArtiklService, DobavljacService, PorudzbinaService, StavkaPorudzbineService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
