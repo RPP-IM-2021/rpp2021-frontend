@@ -1,3 +1,5 @@
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,7 +39,7 @@ import { StavkaPorudzbineService } from './service/stavka-porudzbine.service';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { PorudzbinaService } from './service/porudzbina.service';
 import { PorudzbinaDialogComponent } from './dialog/porudzbina-dialog/porudzbina-dialog.component';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 const Routes = [{path: 'artikl', component: ArtiklComponent},
                 {path: 'dobavljac', component: DobavljacComponent},
@@ -85,9 +87,15 @@ const Routes = [{path: 'artikl', component: ArtiklComponent},
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatSortModule,
+    MatPaginatorModule,
     RouterModule.forRoot(Routes)
   ],
-  providers: [ArtiklService, DobavljacService, PorudzbinaService, StavkaPorudzbineService],
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+              ArtiklService,
+              DobavljacService,
+              PorudzbinaService,
+              StavkaPorudzbineService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

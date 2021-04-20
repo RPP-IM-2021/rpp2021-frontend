@@ -8,6 +8,8 @@ export class StavkaPorudzbineService {
 
   private readonly API_URL = 'http://localhost:8082/stavkaPorudzbine/';
 
+  private readonly API_URL_P = 'http://localhost:8082/stavkeZaPorudzbinu/';
+
   dataChange: BehaviorSubject<StavkaPorudzbine[]> = new BehaviorSubject<StavkaPorudzbine[]>([]);
 
   constructor(private httpClient: HttpClient) {
@@ -16,6 +18,17 @@ export class StavkaPorudzbineService {
 
   public getAllStavkaPorudzbine(): Observable<StavkaPorudzbine[]> {
     this.httpClient.get<StavkaPorudzbine[]>(this.API_URL).subscribe(data => {
+      this.dataChange.next(data);
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + ' ' + error.message);
+    });
+
+    return this.dataChange.asObservable();
+  }
+
+  public getStavkaZaPorudzbinu(idPorudzbine: number): Observable<StavkaPorudzbine[]> {
+    this.httpClient.get<StavkaPorudzbine[]>(this.API_URL_P + idPorudzbine).subscribe(data => {
       this.dataChange.next(data);
     },
     (error: HttpErrorResponse) => {

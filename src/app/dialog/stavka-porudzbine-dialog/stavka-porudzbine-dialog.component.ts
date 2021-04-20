@@ -30,9 +30,9 @@ export class StavkaPorudzbineDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.artiklService.getAllArtikl().subscribe(artikli =>
-      this.artikli = artikli);
-      this.porudzbinaService.getAllPorudzbina().subscribe(porudzbine =>
-      this.porudzbine = porudzbine);
+    this.artikli = artikli);
+    this.porudzbinaService.getAllPorudzbina().subscribe(porudzbine =>
+    this.porudzbine = porudzbine);
   }
 
   public add(): void {
@@ -54,8 +54,6 @@ export class StavkaPorudzbineDialogComponent implements OnInit {
     this.dialogRef.close();
     this.snackBar.open("Odustali ste", 'Uredu', {duration:2000});
   }
-
-
 
   compareTo(a, b) {
     return a.id === b.id;

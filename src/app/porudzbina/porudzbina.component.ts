@@ -1,5 +1,9 @@
+import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { PorudzbinaDialogComponent } from '../dialog/porudzbina-dialog/porudzbina-dialog.component';
 import { Dobavljac } from '../model/dobavljac.model';
@@ -15,9 +19,17 @@ export class PorudzbinaComponent implements OnInit {
 
   displayedColumns = ['id', 'dobavljac', 'iznos', 'datum', 'isporuceno', 'placeno', 'actions'];
 
-  dataSource: Observable<Porudzbina[]>;
+  //dataSource: Observable<Porudzbina[]>;
+  dataSource: MatTableDataSource<Porudzbina>;
+
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
+  @ViewChild(MatSort)
+  sort: MatSort;
 
   currentDate = new Date();
+
+  selektovanaPorudzbina: Porudzbina;
 
   constructor(public porudzbinaService: PorudzbinaService,
               public dialog: MatDialog) {
@@ -29,7 +41,22 @@ export class PorudzbinaComponent implements OnInit {
   }
 
   public loadData(){
-    this.dataSource = this.porudzbinaService.getAllPorudzbina();
+    //this.dataSource = this.porudzbinaService.getAllPorudzbina();
+    this.porudzbinaService.getAllPorudzbina().subscribe(data => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sortingDataAccessor = (data, property) => {
+        switch(property) {
+          case 'id': return data[property];
+          case 'iznos': return data[property];
+          case 'dobavljac': return data[property].naziv;
+          case 'placeno': return data[property].valueOf();
+          default: return data[property].toLocaleLowerCase();
+        }
+      };
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   public openDialog(flag: number, id: number, dobavljac: Dobavljac, iznos: number, datum: Date, isporuceno: Date, placeno: boolean ) {
@@ -40,6 +67,16 @@ export class PorudzbinaComponent implements OnInit {
         this.loadData();
       }
     })
+  }
+
+  public selectedRow(row) {
+    this.selektovanaPorudzbina = row;
+  }
+
+  applyFilter(filterValue: string){
+    filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
   }
 
 }
