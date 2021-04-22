@@ -6,7 +6,11 @@ import { Porudzbina } from '../model/porudzbina.model';
 @Injectable()
 export class PorudzbinaService {
 
-  private readonly API_URL = 'http://localhost:8082/porudzbina/';
+  //End Point u Development modu
+  //private readonly API_URL = 'http://localhost:8082/porudzbina/';
+
+  //End Point u Deployment modu
+  private readonly API_URL = 'https://rpp-backend.herokuapp.com/porudzbina/';
 
   dataChange: BehaviorSubject<Porudzbina[]> = new BehaviorSubject<Porudzbina[]>([]);
 

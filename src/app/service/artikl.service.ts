@@ -6,7 +6,11 @@ import { Artikl } from '../model/artikl.model';
 @Injectable()
 export class ArtiklService {
 
-  private readonly API_URL = 'http://localhost:8082/artikl/';
+  //End Point u Development modu
+  //private readonly API_URL = 'http://localhost:8082/artikl/';
+
+  //End Point u Deployment modu
+  private readonly API_URL = 'https://rpp-backend.herokuapp.com/artikl/';
 
   dataChange: BehaviorSubject<Artikl[]> = new BehaviorSubject<Artikl[]>([]);
 

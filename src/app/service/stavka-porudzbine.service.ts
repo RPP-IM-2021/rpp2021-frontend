@@ -6,9 +6,14 @@ import { StavkaPorudzbine } from '../model/stavka-porudzbine.model';
 @Injectable()
 export class StavkaPorudzbineService {
 
-  private readonly API_URL = 'http://localhost:8082/stavkaPorudzbine/';
+  //End Point u Development modu
+  //private readonly API_URL = 'http://localhost:8082/stavkaPorudzbine/';
+  //private readonly API_URL_P = 'http://localhost:8082/stavkeZaPorudzbinu/';
 
-  private readonly API_URL_P = 'http://localhost:8082/stavkeZaPorudzbinu/';
+  //End Point u Deployment modu
+  private readonly API_URL = 'https://rpp-backend.herokuapp.com/stavkaPorudzbine/';
+  private readonly API_URL_P = 'https://rpp-backend.herokuapp.com/stavkeZaPorudzbinu/';
+
 
   dataChange: BehaviorSubject<StavkaPorudzbine[]> = new BehaviorSubject<StavkaPorudzbine[]>([]);
 
